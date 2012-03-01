@@ -1,0 +1,5 @@
+= semantic_form_for @dispute  do |f|
+  = f.inputs do
+    = f.input :description
+    = f.input :record, :as => :radio, :collection => [['More', 0], ['Less', 1], ['Crazy', 2]]
+  = f.buttons

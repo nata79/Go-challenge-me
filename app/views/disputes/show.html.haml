@@ -1,0 +1,31 @@
+%p
+  %b Description:
+  = @dispute.description
+
+%p
+  %b Record:
+  = record_to_string @dispute.record
+
+- if @dispute.votes and @dispute.votes >= 10
+  %p
+    = link_to 'Respond', new_dispute_video_path(@dispute)
+
+- if @dispute.videos and !@dispute.videos.empty?
+  - @dispute.videos.order(dispute_order(@dispute)).each do |video|
+    = link_to dispute_video_path(video.dispute, video) do
+      %table{:border => "0", :id => "moore"}
+        %td{:id => "mooore"}
+          %table{:id => "mv"}
+            %td
+              = image_tag "http://img.youtube.com/vi/#{video.youtube_id}/1.jpg"
+            %td{:width => "8"}
+            %td{:valign => "top"}
+              %p
+                %b
+                  Record:
+                  = video.number
+              = truncate(video.description, :length => 350)
+            %td{:width => "8"}
+
+= link_to 'Edit', edit_dispute_path(@dispute)
+= link_to 'Back', disputes_path

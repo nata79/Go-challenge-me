@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+%html
+  %head
+    %title Challenge
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag  'application'
+    = csrf_meta_tags
+  %body
+    #head
+      %br
+      = link_to (image_tag "fblogin.png", :align => "right", :style => 'position:relative;right:40px;'), user_omniauth_authorize_path(:facebook)
+      %table{:id => "menu"}
+        %tr
+          %td{:width => "250"}
+          %td{:id => "menuhover"}= link_to "What's on", disputes_path
+          %td{:id => "menuhover"}= link_to "Vote", disputes_path(:voting => true)
+          %td{:id => "menuhover"}= link_to "Arround me"
+          %td{:id => "menuhover"}= link_to "Top"
+          %td{:width => "10"}
+    #main
+      = yield
+

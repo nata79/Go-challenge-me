@@ -1,0 +1,46 @@
+#left
+  #prin
+    %table{:id => "vp", :border => "0", :align => "center"}
+      %tr
+        %td{:colspan => "5", :height => "10"}
+      %tr
+        %td{:width => "8"}
+        %td{:width => "280"}
+          - if @featured
+            %iframe{ :width => "292", :height => "226", :src => "http://www.youtube.com/embed/#{@featured.youtube_id}" , :frameborder => "0", :allowfullscreen => "" }
+        %td{:width => "20"}
+        %td{:valign => "top"}
+          - if @featured
+            = truncate(@featured.dispute.description, :length => 400)
+            %p
+              %b Added:
+              = @featured.created_at.strftime("%d/%m/%y")
+            %p
+              = link_to "Respond", new_dispute_video_path(@featured.dispute, @featured)
+
+  #more
+    - Video.limit(8).each do |video|
+      = link_to dispute_video_path(video.dispute, video) do
+        %table{:border => "0", :id => "moore"}
+          %td{:id => "mooore"}
+            %table{:id => "mv"}
+              %td
+                = image_tag "http://img.youtube.com/vi/#{video.youtube_id}/1.jpg"
+              %td{:width => "8"}
+              %td{:valign => "top"}
+                = truncate(video.description, :length => 350)
+              %td{:width => "8"}
+
+#right
+  #desafio
+    = link_to "Add your Challenge", new_dispute_path
+  #top10top
+    #top10
+      %table{:id => 'top10ideas', :cellpadding => "0", :cellspacing => "0"}
+        - Dispute.limit(10).each do |dispute|
+          %tr{:id => "ideahover"}
+            %td{:id => "idea"}
+              = link_to truncate(dispute.description, :length => 100), dispute_path(dispute)
+            %td{:id => "info"}
+              = link_to (image_tag "tu.png"), {:controller => 'disputes', :action => 'vote', :dispute_id => dispute.id}, :method => :post
+              = dispute.votes

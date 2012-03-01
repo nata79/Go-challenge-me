@@ -1,0 +1,22 @@
+%h1 Listing videos
+
+%table
+  %tr
+    %th Number
+    %th Description
+    %th Dispute
+    %th
+    %th
+    %th
+
+- @videos.each do |video|
+  %tr
+    %td= video.number
+    %td= video.description
+    %td= video.dispute_id
+    %td= link_to 'Show', dispute_video_path(video.dispute, video)
+    %td= link_to 'Edit', edit_dispute_video_path(video.dispute, video)
+    %td= link_to 'Destroy', dispute_video_path(video.dispute, video), confirm: 'Are you sure?', method: :delete
+%br
+
+= link_to 'Challenge accepted', new_dispute_video_path(@dispute)
